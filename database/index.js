@@ -40,8 +40,9 @@ let findRepos = (callback) => {
     } else {
       callback(null, repos);
     }
-  });
-
+  })
+  .limit(15)
+  .sort({username: 1})
 }
 
 module.exports = { save, findRepos };
