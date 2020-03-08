@@ -11,18 +11,18 @@ class App extends React.Component {
       repos: []
     }
     this.getTopRepos = this.getTopRepos.bind(this);
+    this.search = this.search.bind(this);
   }
 
   componentDidMount() {
     this.getTopRepos();
   }
 
-  getTopRepos (repos) {
+  getTopRepos () {
     console.log('getting')
     ajax({
       method: 'GET',
       url: '/repos',
-      data: {repos},
       success: repos => {
         this.setState ({
         repos
@@ -38,7 +38,9 @@ class App extends React.Component {
       method: 'POST',
       url: '/repos',
       data: {term},
-      success: () => console.log('posted'),
+      success: () => {
+        this.getTopRepos()
+      },
       error: e => console.log(e)
     })
   }

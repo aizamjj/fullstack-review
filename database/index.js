@@ -41,8 +41,8 @@ let findRepos = (callback) => {
       callback(null, repos);
     }
   })
-  .limit(15)
-  .sort({username: 1})
+  // .limit(30)
+  // .sort({username: 1})
 }
 
 module.exports = { save, findRepos };
