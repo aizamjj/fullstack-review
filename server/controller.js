@@ -3,12 +3,12 @@ const Git = require('../helpers/github.js')
 
 //GET REQUEST for getting all the repos from the database
 const get = (req, res) => {
-  Model.get(repo, (err, repo) => {
+  Model.get((err, repos) => {
     if (err) {
       console.log(err, 'error from server')
       res.status(400).send([])
     } else {
-      res.send(repo);
+      res.send(repos);
     }
   });
 }

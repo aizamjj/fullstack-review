@@ -1,24 +1,29 @@
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/fetcher');
+// var uniqueValidator = require('mongoose-unique-validator');
+
 
 // db.on('error', console.error.bind(console.log, 'connection error:'));
 // db.once('open', function() {console.log('connected')
 // });
 
 let repoSchema = mongoose.Schema({
+  _id: Number,
   username: String,
-  id: Number,
   repoURL: String,
   forks: Number
 });
 
+// repoSchema.plugin(uniqueValidator);
 let Repo = mongoose.model('Repo', repoSchema);
+
 
 let save = (repos) => {
   for (var i = 0; i < repos.length; i++) {
     let objectID = repos[i];
     let repo = new Repo({
-      id: objectID.id,
+      _id: objectID.id,
+      username: objectID.owner.login,
       repoURL: objectID.html_url,
       forks: objectID.forks
     })
@@ -28,4 +33,15 @@ let save = (repos) => {
   }
 }
 
-module.exports.save = save;
+let findRepos = (callback) => {
+  Repo.find({}, (err, repos) => {
+    if (err) {
+      console.log(err, null)
+    } else {
+      callback(null, repos);
+    }
+  });
+
+}
+
+module.exports = { save, findRepos };

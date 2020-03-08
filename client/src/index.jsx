@@ -10,6 +10,26 @@ class App extends React.Component {
     this.state = {
       repos: []
     }
+    this.getTopRepos = this.getTopRepos.bind(this);
+  }
+
+  componentDidMount() {
+    this.getTopRepos();
+  }
+
+  getTopRepos (repos) {
+    console.log('getting')
+    ajax({
+      method: 'GET',
+      url: '/repos',
+      data: {repos},
+      success: repos => {
+        this.setState ({
+        repos
+      })
+    },
+      error: e => console.log(e)
+    })
   }
 
   search (term) {

@@ -1,8 +1,14 @@
 const db = require('../database')
 
 //GET top 25 repos
-const get = (repo, callback) => {
-  db.find(err, repos)
+const get = (callback) => {
+  db.findRepos((err, repos) => {
+    if (err) {
+      console.log(err);
+    } else {
+      callback(null, repos);
+    }
+  });
 
 }
 
