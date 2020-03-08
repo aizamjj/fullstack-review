@@ -1,7 +1,10 @@
 import React from 'react';
 
-const RepoListEntry = (props) => (
-    <div> {props.repo.username}</div>
+const RepoListEntry = props => (
+    <div>
+      <h4>{props.repo.username}</h4>
+      <div>{props.repo.repoURL}</div>
+    </div>
 )
 
 
